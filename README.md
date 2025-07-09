@@ -84,3 +84,16 @@ kubeadm token create
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
 openssl dgst -sha256 -hex | sed 's/^.* //'
 ```
+
+
+Trên máy Master, bạn có thể tạo lại lệnh join bằng lệnh sau:
+
+bash
+kubeadm token create --print-join-command
+
+Lấy certificate-key (chỉ cần khi thêm node control-plane):
+Khi bạn khởi tạo control-plane HA, certificate-key sẽ xuất hiện trong output của lệnh kubeadm init --upload-certs. Nếu cần tạo lại:
+
+bash
+kubeadm init phase upload-certs --upload-certs
+Giá trị certificate-key sẽ nằm trong output.
